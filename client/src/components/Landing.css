@@ -1,0 +1,31 @@
+.fixed-max-width {
+    height: 100vh;
+  }
+
+  .first-col {
+    background: url(./background-landing.jpg) no-repeat; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+  }
+
+  .second-col {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px
+  }
+
+  .items-grid {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    gap: 10px;
+  }
+
+  .list-group {
+    margin-bottom: 15px;
+  }
