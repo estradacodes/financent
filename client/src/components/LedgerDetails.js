@@ -2,8 +2,9 @@ import { React, useRef, useCallback, useState, useEffect } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { Table, Row, Col, Button, Container } from 'reactstrap'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faTrashCan, faArrowUpRightFromSquare } from '@fortawesome/free-solid-svg-icons'
+import { faTrashCan, faArrowUpRightFromSquare, faMoneyCheckDollar } from '@fortawesome/free-solid-svg-icons'
 import Header from './Navbar'
+import "./LedgerDetails.css"
 
 function LedgerDetails (props){
     const [data, setData] = useState(0)
@@ -63,46 +64,51 @@ function LedgerDetails (props){
             <Header />
             <Container>
             <h3>Ledger</h3>
-            <h5><strong>Name:</strong> {data.name}</h5> 
-            <h5><strong>Starting Balance:</strong> ${data.amount.$numberDecimal}</h5> 
-            <h5><strong>Running Balance:</strong> ${data.running_bal}</h5>
-            <Row>
-                <Col sm={10}>
-                <Table>
-                    <thead>
-                        <tr>
-                        <th>Date</th>
-                        <th>Name</th>
-                        <th>Type</th>
-                        <th>Amount</th>
-                        <th>Running Balance</th>
-                        <th>Edit</th>
-                        <th>Delete</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {data.transactions.map((item) => {
-                            return <tr key={item.id}>
-                                <th scope="row">{item.date}</th>
-                                <td>{item.name}</td>
-                                <td>{item.type}</td>
-                                <td>${item.amount.$numberDecimal}</td>
-                                <td>${item.running}</td>
-                                <td><Link to={`/ledgers/transaction/edit`} 
-                                state={{ id:id, 
-                                        trx_Id:item.id,
-                                        date: item.date,
-                                        name: item.name,
-                                        type: item.type,
-                                        amount: item.amount.$numberDecimal
-                                        }}><FontAwesomeIcon color="green" icon={faArrowUpRightFromSquare} /></Link></td>
-                                <td><Link onClick={(e) => deleteData(e, item.id)}><FontAwesomeIcon color="black" icon={faTrashCan} /></Link></td>
-                            </tr> })}
-                    </tbody>
-                </Table>
-                <Link to={'/ledgers/transaction/add'} state={{id:id}}><Button color='secondary'>Add</Button></Link>
-                </Col>
-            </Row>         
+            <div className='data'>
+                <div className='ledger-info'>
+                    <FontAwesomeIcon className="ledger-icon" color="green" icon={faMoneyCheckDollar} />
+                    <h5><strong>Name:</strong> {data.name}</h5> 
+                    <h5><strong>Starting Balance:</strong> ${data.amount.$numberDecimal}</h5> 
+                    <h5><strong>Running Balance:</strong> ${data.running_bal}</h5>
+                </div>
+                <Row className='data-table'>
+                    <Col>
+                    <Table>
+                        <thead>
+                            <tr>
+                            <th>Date</th>
+                            <th>Name</th>
+                            <th>Type</th>
+                            <th>Amount</th>
+                            <th>Running Balance</th>
+                            <th>Edit</th>
+                            <th>Delete</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {data.transactions.map((item) => {
+                                return <tr key={item.id}>
+                                    <th scope="row">{item.date}</th>
+                                    <td>{item.name}</td>
+                                    <td>{item.type}</td>
+                                    <td>${item.amount.$numberDecimal}</td>
+                                    <td>${item.running}</td>
+                                    <td><Link to={`/ledgers/transaction/edit`} 
+                                    state={{ id:id, 
+                                            trx_Id:item.id,
+                                            date: item.date,
+                                            name: item.name,
+                                            type: item.type,
+                                            amount: item.amount.$numberDecimal
+                                            }}><FontAwesomeIcon color="green" icon={faArrowUpRightFromSquare} /></Link></td>
+                                    <td><Link onClick={(e) => deleteData(e, item.id)}><FontAwesomeIcon color="black" icon={faTrashCan} /></Link></td>
+                                </tr> })}
+                        </tbody>
+                    </Table>
+                    <Link to={'/ledgers/transaction/add'} state={{id:id}}><Button color='secondary'>Add</Button></Link>
+                    </Col>
+                </Row> 
+            </div>        
             </Container>               
         </div>
         )

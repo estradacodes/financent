@@ -1,0 +1,36 @@
+.ledger-info {
+    background-color: #f9f9f9;
+    filter: drop-shadow(1px 1px 1px rgba(0,0,0,0.1));
+    padding-top: 15px;
+    padding-bottom: 15px;
+    padding-left: 15px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+    gap: 10px;
+}
+
+.ledger-icon {
+    font-size: 35px;
+}
+
+.data-table {
+    background-color: #f9f9f9;
+    filter: drop-shadow(1px 1px 1px rgba(0,0,0,0.1));
+    padding-top: 15px;
+    padding-bottom: 15px;
+    padding-left: 15px;
+    border-radius: 10px;
+    margin-left: 1px;
+    margin-right: 1px;
+
+}
+
+.data {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
