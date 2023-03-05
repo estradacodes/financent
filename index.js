@@ -99,13 +99,19 @@ app.post('/api/ledger/view', async (req, res) => {
   const result = await collection.find({_id: ObjectId(req.body.id)});
   const data = [];
   await result.forEach((doc) => {
-    const obj = {
+    let obj = {
       "id": doc._id,
       "user": doc.user,
       "name": doc.name,
       "amount": doc.amount,
       "transactions": doc.transactions
     }
+    let run_total = parseFloat(doc.amount)
+    obj.transactions.forEach((trx) => {
+      trx["running"] = run_total + parseFloat(trx.amount)
+      run_total = trx["running"]
+    })
+    obj["running_bal"] = run_total
     data.push(obj)
   })
   res.json({data: data})
