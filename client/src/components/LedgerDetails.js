@@ -9,9 +9,13 @@ import "./LedgerDetails.css"
 function LedgerDetails (props){
     const [data, setData] = useState(0)
     const dataFetchedRef = useRef(false)
-    const [runningBal, setRunningBal] = useState(0)
 
     let { id } = useParams();
+
+    const dollar_formatter = new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'USD',
+    })
 
     const getData = useCallback(async() => {
         let result = await fetch('/api/ledger/view', {
@@ -25,7 +29,6 @@ function LedgerDetails (props){
         })
         let ledgerData = await result.json()
         setData(ledgerData.data[0])
-        setRunningBal(ledgerData.data[0].amount.$numberDecimal)
       },[id])
 
       const deleteData = async (e, trx_id) => {
@@ -68,8 +71,8 @@ function LedgerDetails (props){
                 <div className='ledger-info'>
                     <FontAwesomeIcon className="ledger-icon" color="green" icon={faMoneyCheckDollar} />
                     <h5><strong>Name:</strong> {data.name}</h5> 
-                    <h5><strong>Starting Balance:</strong> ${data.amount.$numberDecimal}</h5> 
-                    <h5><strong>Running Balance:</strong> ${data.running_bal}</h5>
+                    <h5><strong>Starting Balance:</strong> {dollar_formatter.format(data.amount.$numberDecimal)}</h5> 
+                    <h5><strong>Running Balance:</strong> {dollar_formatter.format(data.running_bal)}</h5>
                 </div>
                 <Row className='data-table'>
                     <Col>
@@ -91,8 +94,8 @@ function LedgerDetails (props){
                                     <th scope="row">{new Date(item.date).toDateString()}</th>
                                     <td>{item.name}</td>
                                     <td>{item.type}</td>
-                                    <td>${item.amount.$numberDecimal}</td>
-                                    <td>${item.running}</td>
+                                    <td>{dollar_formatter.format(item.amount.$numberDecimal)}</td>
+                                    <td>{dollar_formatter.format(item.running)}</td>
                                     <td><Link to={`/ledgers/transaction/edit`} 
                                     state={{ id:id, 
                                             trx_Id:item.id,
