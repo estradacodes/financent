@@ -72,12 +72,18 @@ function EditTransactionForm(props){
             </FormGroup>
             <FormGroup className='fg-1'>
             <Label for='type'> Type </Label>
-                <Input
-                    type='type'
+            <Input
+                    type="select"
+                    onChange={(e) => setType(e.target[e.target.selectedIndex].text)}
                     value={type}
-                    placeholder="Deposit or Withdrawl"
-                    onChange={(e) => setType(e.target.value)}
-                />
+                >
+                    <option>
+                    Deposit
+                    </option>
+                    <option>
+                    Withdrawl
+                    </option>
+                </Input>
             </FormGroup>
                 <Button type='submit'>Save</Button>
             </Col>
