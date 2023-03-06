@@ -88,7 +88,7 @@ function LedgerDetails (props){
                         <tbody>
                             {data.transactions.map((item) => {
                                 return <tr key={item.id}>
-                                    <th scope="row">{item.date}</th>
+                                    <th scope="row">{new Date(item.date).toDateString()}</th>
                                     <td>{item.name}</td>
                                     <td>{item.type}</td>
                                     <td>${item.amount.$numberDecimal}</td>
